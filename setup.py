@@ -8,7 +8,7 @@ def read(filename):
 
 setup(
     name = 'srmqt4',
-    version = '0.1',
+    version = '0.2',
     author = 'Alexey Zotov',
     author_email = 'alexey.zotov@gmail.com',
     url = 'http://code.google.com/p/srmqt4/',
