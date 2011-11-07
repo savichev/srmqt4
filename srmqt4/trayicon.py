@@ -145,7 +145,7 @@ class TrayIcon(QtCore.QObject):
     def set_device_not_found(self, device):
         self.tray_icon.setIcon(self.error_icon)
         self.tray_icon.setToolTip(
-            'Device %s not found in /proc/mdstat' % device)
+            'Device <b>%s</b> not found in /proc/mdstat' % device)
 
     def set_device_resync(self):
         self.tray_icon.setIcon(self.raid_warning_icon)

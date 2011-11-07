@@ -131,12 +131,9 @@ class SRMApp(QtGui.QApplication):
         status = mdstat.get_status()
 
         if self.device not in status['devices']:
-            return
+            return self.tray_icon.set_device_not_found(self.device)
 
         self.raid_status = status['devices'][self.device]
-
-        if not self.raid_status:
-            return self.tray_icon.set_device_not_found(self.device)
 
         if self.raid_status['pers'] and self.raid_status['raid']['degraded'] > 0:
             if self.raid_status['resync']['type']:
@@ -178,7 +175,7 @@ class SRMApp(QtGui.QApplication):
                 self.raid_status['raid']['status']
             )
 
-        size = 3 * self.tray_icon.get_size() / 2
+        size = self.tray_icon.get_size() * 2
 
         disk_rows = []
         
@@ -221,8 +218,8 @@ class SRMApp(QtGui.QApplication):
             </tr>'''
 
             params = {
-                'width': size.width(),
-                'height': size.height(),
+                'width': 3 * size.width() // 4,
+                'height': 3 * size.height() // 4,
                 'hdd_icon': hdd_icon,
                 'disk_line': disk_line
             }
@@ -234,10 +231,17 @@ class SRMApp(QtGui.QApplication):
             lines = []
             
             percent = self.raid_status['resync'].get('percent', -1)
-            if percent > 0:
-                percent_text = '''<tr><td colspan="2"><table>
-                    <tr><td bgcolor="%s" width="%d%%">&nbsp;</td></tr>
-                </table></td></tr>''' % (str(self.color_resync.name()), percent)
+            if percent >= 1:
+                percent_text = '''<tr><td colspan="2">
+                    <table cellspacing="0" cellpadding="0" border="1" style="border-style: solid;" width="100%%"><tr><td>
+                    <table cellspacing="0"><tr><td bgcolor="%(color)s" width="%(percent)d%%">
+                        &nbsp;
+                    </td></tr></table>
+                    </td></tr></table>
+                </td></tr>''' % {
+                    'color': str(self.color_resync.name()),
+                    'percent': percent
+                }
                 lines.append(percent_text)
 
             row_template = '<tr><td align="center" colspan="2">%s</td></tr>'
@@ -256,7 +260,9 @@ class SRMApp(QtGui.QApplication):
 
         tooltip = '''<table cellpadding="3" style="margin: 5 15 5 5;">
             <tr>
-                <td rowspan="2" valign="middle"><img src="%(raid_icon)s"></td>
+                <td rowspan="2" valign="middle">
+                    <img width="%(width)d" height="%(height)d" src="%(raid_icon)s">
+                </td>
                 <td align="center" valign="middle">%(device)s</td>
             </tr>
             <tr>
@@ -268,6 +274,8 @@ class SRMApp(QtGui.QApplication):
         '''
 
         params = {
+            'width': size.width(),
+            'height': size.height(),
             'raid_icon': raid_icon,
             'device': device_text,
             'status': status_text,
