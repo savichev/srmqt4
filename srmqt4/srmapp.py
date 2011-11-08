@@ -140,6 +140,8 @@ class SRMApp(QtGui.QApplication):
                 self.tray_icon.set_device_resync()
             else:
                 self.tray_icon.set_device_failed()
+        elif self.raid_status['resync']['type']:
+            self.tray_icon.set_device_resync()
         else:
             self.tray_icon.set_device_active(self.raid_status['active'])
 
@@ -157,6 +159,9 @@ class SRMApp(QtGui.QApplication):
                 else:
                     raid_icon = 'raid-error.png'
                     status_color = self.color_failed
+            elif self.raid_status['resync']['type']:
+                raid_icon = 'raid-warning.png'
+                status_color = self.color_resync
         else:
             status_color = self.color_inactive
             raid_icon = 'raid-inactive.png'
@@ -246,6 +251,9 @@ class SRMApp(QtGui.QApplication):
 
             row_template = '<tr><td align="center" colspan="2">%s</td></tr>'
 
+            type_text = '%(type)s: %(percent).1f%%' % self.raid_status['resync']
+            lines.append(row_template % type_text)
+            
             finish_text = 'finish: %s' % self.raid_status['resync']['finish']
             lines.append(row_template % finish_text)
 
@@ -258,7 +266,7 @@ class SRMApp(QtGui.QApplication):
             resync_text = ''.join(lines)
             
 
-        tooltip = '''<table cellpadding="3" style="margin: 5 15 5 5;">
+        tooltip = '''<table cellpadding="3" style="margin: 5 10 5 5;">
             <tr>
                 <td rowspan="2" valign="middle">
                     <img width="%(width)d" height="%(height)d" src="%(raid_icon)s">
