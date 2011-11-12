@@ -7,3 +7,4 @@ Icon=drive-harddisk
 Terminal=False
 Type=Application
 StartupNotify=True
+Categories=System;Utility;Monitor;Qt
