@@ -28,6 +28,9 @@ setup(
         'Topic :: System :: Monitoring'
     ],
     platforms = ['Linux'],
+    requires = [
+        'PyQt (>=4.0)'
+    ],
     package_data = {
         'srmqt4': ['ui/*.ui']
     },
