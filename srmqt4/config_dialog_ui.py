@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/config_dialog.ui'
 #
-# Created: Mon Nov  7 18:07:08 2011
+# Created: Mon Nov 14 19:22:55 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,20 +17,34 @@ except AttributeError:
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(244, 235)
+        Dialog.resize(244, 264)
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.verticalLayout = QtGui.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.deviceLayout = QtGui.QHBoxLayout()
+        self.deviceLayout.setObjectName(_fromUtf8("deviceLayout"))
         self.deviceLabel = QtGui.QLabel(Dialog)
         self.deviceLabel.setText(QtGui.QApplication.translate("Dialog", "Device", None, QtGui.QApplication.UnicodeUTF8))
         self.deviceLabel.setObjectName(_fromUtf8("deviceLabel"))
-        self.horizontalLayout.addWidget(self.deviceLabel)
+        self.deviceLayout.addWidget(self.deviceLabel)
         self.deviceComboBox = QtGui.QComboBox(Dialog)
         self.deviceComboBox.setObjectName(_fromUtf8("deviceComboBox"))
-        self.horizontalLayout.addWidget(self.deviceComboBox)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.deviceLayout.addWidget(self.deviceComboBox)
+        self.verticalLayout.addLayout(self.deviceLayout)
+        self.pollingLayout = QtGui.QHBoxLayout()
+        self.pollingLayout.setObjectName(_fromUtf8("pollingLayout"))
+        self.pollingLabel = QtGui.QLabel(Dialog)
+        self.pollingLabel.setText(QtGui.QApplication.translate("Dialog", "Polling interval", None, QtGui.QApplication.UnicodeUTF8))
+        self.pollingLabel.setObjectName(_fromUtf8("pollingLabel"))
+        self.pollingLayout.addWidget(self.pollingLabel)
+        self.pollingSpinBox = QtGui.QSpinBox(Dialog)
+        self.pollingSpinBox.setSuffix(QtGui.QApplication.translate("Dialog", " sec", None, QtGui.QApplication.UnicodeUTF8))
+        self.pollingSpinBox.setMinimum(1)
+        self.pollingSpinBox.setMaximum(60)
+        self.pollingSpinBox.setProperty("value", 5)
+        self.pollingSpinBox.setObjectName(_fromUtf8("pollingSpinBox"))
+        self.pollingLayout.addWidget(self.pollingSpinBox)
+        self.verticalLayout.addLayout(self.pollingLayout)
         self.colorActiveLayout = QtGui.QHBoxLayout()
         self.colorActiveLayout.setObjectName(_fromUtf8("colorActiveLayout"))
         self.colorActiveLabel = QtGui.QLabel(Dialog)

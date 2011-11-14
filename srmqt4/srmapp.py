@@ -62,11 +62,13 @@ class SRMApp(QtGui.QApplication):
 
         self.raid_status = None
 
-        self.polling_timer = self.startTimer(5000)
+        self.polling_timer = self.startTimer(self.polling_interval * 1000)
         self.update_status()
 
     def read_config(self):
         self.device = self.config.read_string('device', '')
+
+        self.polling_interval = self.config.read_int('polling_interval', 5)
 
         self.color_active = QtGui.QColor(self.config.read_string(
             'color_active', '#008000'))
@@ -88,6 +90,8 @@ class SRMApp(QtGui.QApplication):
         self.config_dialog.deviceComboBox.setCurrentIndex(
             self.config_dialog.deviceComboBox.findText(self.device))
 
+        self.config_dialog.pollingSpinBox.setValue(self.polling_interval)
+
         self.config_dialog.colorActiveButton.setColor(self.color_active)
         self.config_dialog.colorResyncButton.setColor(self.color_resync)
         self.config_dialog.colorFailedButton.setColor(self.color_failed)
@@ -101,6 +105,12 @@ class SRMApp(QtGui.QApplication):
 
         if not self.device:
             self.tray_icon.set_need_config()
+
+        self.polling_interval = self.config_dialog.pollingSpinBox.value()
+        self.config.write('polling_interval', self.polling_interval)
+
+        self.killTimer(self.polling_timer)
+        self.polling_timer = self.startTimer(self.polling_interval * 1000)
 
         self.colorActive = self.config_dialog.colorActiveButton.color()
         self.colorResync = self.config_dialog.colorResyncButton.color()

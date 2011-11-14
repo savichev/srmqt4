@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>244</width>
-    <height>235</height>
+    <height>264</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="deviceLayout">
      <item>
       <widget class="QLabel" name="deviceLabel">
        <property name="text">
@@ -25,6 +25,33 @@
      </item>
      <item>
       <widget class="QComboBox" name="deviceComboBox"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="pollingLayout">
+     <item>
+      <widget class="QLabel" name="pollingLabel">
+       <property name="text">
+        <string>Polling interval</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="pollingSpinBox">
+       <property name="suffix">
+        <string> sec</string>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>60</number>
+       </property>
+       <property name="value">
+        <number>5</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
