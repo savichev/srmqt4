@@ -6,7 +6,7 @@ from distutils.core import setup
 def read(filename):
     return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
-VERSION = '0.3'
+VERSION = '0.4'
 
 setup(
     name = 'srmqt4',

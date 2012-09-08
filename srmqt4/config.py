@@ -27,11 +27,11 @@ from PyQt4 import QtCore
 class Config(QtCore.QObject):
     DATE_FMT = '%Y-%m-%d %H:%M:%S'
     
-    def __init__(self, appdir):
+    def __init__(self, config_path):
         super(Config, self).__init__()
 
         self.conf = QtCore.QSettings(
-            os.path.join(appdir, 'softraid-monitor.conf'),
+            config_path,
             QtCore.QSettings.IniFormat
         )
 

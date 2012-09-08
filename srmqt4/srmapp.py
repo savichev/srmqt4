@@ -44,7 +44,11 @@ class SRMApp(QtGui.QApplication):
             if not os.path.isdir(path):
                 os.mkdir(path)
 
-        self.config = config.Config(self.appdir)
+        config_path = os.path.join(self.appdir, 'softraid-monitor.conf')
+        if len(argv) > 1 and argv[1][0] != '-':
+            config_path = argv[1]
+
+        self.config = config.Config(config_path)
         self.read_config()
 
         self.tray_icon = trayicon.TrayIcon()
